@@ -1,0 +1,119 @@
+﻿@model EventsUI.Models.UpcomingPassedEventsViewModel
+
+<h1 class="event-group-heading">Upcoming Events</h1>
+
+<div class="row">
+    @if (Model.UpcommingEvents.Any())
+    {
+        @Html.DisplayFor(x => x.UpcommingEvents)
+
+    }
+    else
+    {
+        <div class="col-md-4 col-sm-6 col-xs-12">No events</div>
+    }
+</div>
+<table>
+    <tr>
+        <td colspan="9">
+            @{
+                int PrevUpcommingPageNo = ViewBag.PageNoUpcomming - 1;
+                if (PrevUpcommingPageNo <= 0)
+                {
+                    PrevUpcommingPageNo = 1;
+                }
+
+                int NextUpcommingPageNo = ViewBag.PageNoUpcomming + 1;
+                if (NextUpcommingPageNo > ViewBag.NoOfUpcommingPages)
+                {
+                    NextUpcommingPageNo = ViewBag.PageNoUpcomming;
+                }
+
+            }
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/Events/My?PageNoUpcomming=@PrevUpcommingPageNo&PageNoPassed=@ViewBag.PageNoPassed">Prev</a>
+                </li>
+                @for (int i = 0; i < ViewBag.NoOfUpcommingPages; i++)
+                {
+                    if ((i + 1) == ViewBag.PageNoUpcomming)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link" href="/Events/My?PageNoUpcomming=@(i + 1)&PageNoPassed=@ViewBag.PageNoPassed">@( i + 1)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/Events/My?PageNoUpcomming=@(i + 1)&PageNoPassed=@ViewBag.PageNoPassed">@( i + 1)</a>
+                        </li>
+                    }
+                }
+                <li class="page-item">
+                    <a class="page-link" href="/Events/My?PageNoUpcomming=@NextUpcommingPageNo&PageNoPassed=@ViewBag.PageNoPassed">Next</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+<h1 class="event-group-heading">Passed Events</h1>
+
+<div class="row">
+    @if (Model.PassedEvents.Any())
+    {
+        @Html.DisplayFor(x => x.PassedEvents)
+
+    }
+    else
+    {
+        <div class="col-md-4 col-sm-6 col-xs-12">No passed events</div>
+    }
+</div>
+
+<table>
+    <tr>
+        <td colspan="9">
+            @{
+                int PrevPassedPageNo = ViewBag.PageNoPassed - 1;
+                if (PrevPassedPageNo <= 0)
+                {
+                    PrevPassedPageNo = 1;
+                }
+
+                int NextPassedPageNo = ViewBag.PageNoPassed + 1;
+                if (NextPassedPageNo > ViewBag.NoOfPassedPages)
+                {
+                    NextPassedPageNo = ViewBag.NoOfPassedPages;
+                }
+
+            }
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/Events/My?PageNoUpcomming=@PrevUpcommingPageNo&PageNoPassed=@PrevPassedPageNo">Prev</a>
+                </li>
+                @for (int i = 0; i < ViewBag.NoOfPassedPages; i++)
+                {
+                    if ((i + 1) == ViewBag.PageNoPassed)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link" href="/Events/My?PageNoUpcomming=@ViewBag.PageNoUpcomming&PageNoPassed=@(i+1)">@( i + 1)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/Events/My?PageNoUpcomming=@ViewBag.PageNoUpcomming&PageNoPassed=@(i + 1)">@( i + 1)</a>
+                        </li>
+                    }
+                }
+                <li class="page-item">
+                    <a class="page-link" href="/Events/My?PageNoUpcomming=@ViewBag.PageNoUpcomming&PageNoPassed=@NextPassedPageNo">Next</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
